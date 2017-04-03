@@ -25,3 +25,6 @@ mesh, with consistent winding order, and normals. You can specify 'hardness'
 per edge, and normals will be generated to simulate that look.
 
 See the included Unity sample for usage.
+
+The AutoMesh library itself is in /Assets/Scripts/AutoMesh
+What's in that folder should not have any dependecies outside the folder.
