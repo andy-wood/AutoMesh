@@ -1,5 +1,8 @@
-﻿/*
+/*
 	Copyright 2017 Andrew A. Wood
+
+    email: projecteterna@gmail.com
+    twitter: @projecteterna
 	
 	This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
@@ -15,35 +18,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.	
  */
 
-using UnityEngine.Assertions;
+This is a reference implementation of an automatic procedural mesh generator.
+It is provided primarily for educational purposes. It takes a simple list of
+vertices and un-directed edges, and automatically generates a triangulated 
+mesh, with consistent winding order, and normals. You can specify 'hardness'
+per edge, and normals will be generated to simulate that look.
 
-using System.Collections.Generic;
-
-public class Vertex
-{
-	readonly int	_index;
-	readonly Point 	_point;
-	
-	readonly HashSet<Face> _faces = new HashSet<Face> ();
-
-	public int 					index { get { return _index; } }
-	public Point 				point { get { return _point; } }
-	public IEnumerable<Face> 	faces { get { return _faces; } }
-
-	public Vertex(int index, Point point, Face face)
-	{
-		_index = index;
-		_point = point;
-
-		_faces.Add (face);
-		point.addVertex (this);
-	}
-
-	public void addFace(Face face)
-	{
-		Assert.IsNotNull (face);
-		_faces.Add (face);
-	}
-
-	public bool isSharedBy(Face face) { return _faces.Contains (face); }
-}
+See the included Unity sample for usage.
