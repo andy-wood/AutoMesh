@@ -34,8 +34,8 @@ public class AutoMesh
 	// canonical edge to mesh edge
 	readonly Dictionary<Pair<Point>, MeshEdge> _edges = new Dictionary<Pair<Point>, MeshEdge> ();
 
-	// unique edge loops
-	readonly List<HashSet<Pair<Point>>> _loops = new List<HashSet<Pair<Point>>> ();
+	// unique edge loops - use the set of points in edges, for generality
+	readonly List<HashSet<Point>> _loops = new List<HashSet<Point>> ();
 	
 	// final mesh-ready arrays
 	readonly List<Vector3> 	_originalVertices 	= new List<Vector3> ();
@@ -160,10 +160,14 @@ public class AutoMesh
 
 	void tryAddFace(List<Pair<Point>> edges)
 	{
-		var newLoop = new HashSet<Pair<Point>> ();
+		// check for redundant loop sets
+		// use set of points in edges for generality, not edges themselves
+		var newLoop = new HashSet<Point> ();
 
 		foreach (var edge in edges)
-			newLoop.Add (edge.sorted);
+			newLoop.Add (edge.p0);
+		
+		newLoop.Add (edges [edges.Count - 1].p1);
 
 		foreach (var loop in _loops)
 		{
